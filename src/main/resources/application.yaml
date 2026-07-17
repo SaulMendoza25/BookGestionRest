@@ -1,4 +1,5 @@
 spring:
+  
   application:
     name: BookGestion
   datasource:
@@ -8,9 +9,12 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+       ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
          '[format_sql]': true
+        
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8089
