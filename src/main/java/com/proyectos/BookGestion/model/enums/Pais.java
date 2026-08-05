@@ -1,0 +1,6 @@
+package com.proyectos.BookGestion.model.enums;
+
+public enum Pais {
+    ECUADOR, USA, GERMANY, SPAIN, ENGLAND, FRANCE, COLOMBIA, VENEZUELA, URUGUAY, ARGENTINA, CHILE, BRAZIL, MEXICO,
+    CANADA, PORTUGAL, SWEDEN
+}

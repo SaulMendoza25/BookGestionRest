@@ -1,4 +1,4 @@
-package com.proyectos.BookGestion.repository.repository_libro;
+package com.proyectos.BookGestion.repository.libro_respository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

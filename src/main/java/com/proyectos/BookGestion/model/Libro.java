@@ -3,7 +3,11 @@ package com.proyectos.BookGestion.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.proyectos.BookGestion.model.enums.Estado;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,7 +34,8 @@ public class Libro {
     private LocalDate fechaPublicacion;
     private Integer numeroPaginas;
     private String portada;
-    private Enum estado;
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
 
     @OneToMany(mappedBy = "libro")
     private List<BibliotecaUsuario> bibliotecaUsuarios;

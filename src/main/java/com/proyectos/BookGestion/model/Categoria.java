@@ -25,6 +25,6 @@ public class Categoria {
     private String descripcion;
 
     @OneToMany(mappedBy = "categoria")
-    List<LibroCategoria> libroCategorias;
+    private List<LibroCategoria> libroCategorias;
 
 }

@@ -24,5 +24,5 @@ public class Idioma {
     private String nombre;
     private String codigo;
     @OneToMany(mappedBy = "idioma")
-    List<Libro> libros;
+    private List<Libro> libros;
 }

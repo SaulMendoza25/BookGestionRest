@@ -29,5 +29,5 @@ public class Autor {
     private String urlFoto;
 
     @OneToMany(mappedBy="autor")
-    List<LibroAutor> libroAutores;
+    private List<LibroAutor> libroAutores;
 }

@@ -2,16 +2,15 @@ package  com.proyectos.BookGestion.controller.bookcontroller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyectos.BookGestion.model.Libro;
-import com.proyectos.BookGestion.service.service_libro.LibroServiceImpl;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.proyectos.BookGestion.service.libro_service.LibroServiceImpl;
 
 
 

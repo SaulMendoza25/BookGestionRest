@@ -2,7 +2,11 @@ package com.proyectos.BookGestion.model;
 
 import java.util.List;
 
+import com.proyectos.BookGestion.model.enums.Pais;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,8 +26,9 @@ public class Editorial {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nombre;
-    private Enum pais;
+    @Enumerated(EnumType.STRING)
+    private Pais pais;
     private String sitioWeb;
     @OneToMany(mappedBy = "editorial")
-    List<Libro> libros;
+    private List<Libro> libros;
 }
