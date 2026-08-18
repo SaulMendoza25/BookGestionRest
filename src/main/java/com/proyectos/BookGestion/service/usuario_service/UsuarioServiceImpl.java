@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.catalina.startup.Tool;
+import org.springframework.stereotype.Service;
 
 import com.proyectos.BookGestion.model.Usuario;
 import com.proyectos.BookGestion.repository.usuario_repository.UsuarioRepository;
 import com.proyectos.BookGestion.service.tools.ToolsMethodsService;
-
+@Service
 public class UsuarioServiceImpl implements UsuarioService{
 
     UsuarioRepository usuarioRepository;

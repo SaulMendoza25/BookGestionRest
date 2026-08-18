@@ -1,4 +1,4 @@
-package  com.proyectos.BookGestion.controller.bookcontroller;
+package  com.proyectos.BookGestion.controller.libro_controller;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class BookController{
     private final LibroServiceImpl libroService;
 
 
-    BookController(LibroServiceImpl libroService) {
+    public BookController(LibroServiceImpl libroService) {
         this.libroService = libroService;
     }
 

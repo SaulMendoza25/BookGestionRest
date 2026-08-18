@@ -3,10 +3,13 @@ package com.proyectos.BookGestion.service.categoria_service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.proyectos.BookGestion.model.Categoria;
 import com.proyectos.BookGestion.repository.categoria_repository.CategoriaRepository;
 import com.proyectos.BookGestion.service.tools.ToolsMethodsService;
 
+@Service
 public class CategoriaServiceImpl implements CategoriaService {
 
     private CategoriaRepository categoriaRepository;
