@@ -6,9 +6,13 @@ import java.util.Optional;
 import com.proyectos.BookGestion.model.Categoria;
 
 public interface CategoriaService {
-    Optional<Categoria> findById(Long id);   
-    Categoria savCategoria(Categoria categoria);
-    List<Categoria> findAllCategoria();
-    Categoria updateCategoria(Long id, Categoria categoria);
-    void deleteCategoria(Long id);
+  Optional<Categoria> findById(Long id);
+
+  Categoria saveCategoria(Categoria categoria);
+
+  List<Categoria> findAllCategoria();
+
+  Categoria updateCategoria(Long id, Categoria categoria);
+
+  void deleteCategoria(Long id);
 }

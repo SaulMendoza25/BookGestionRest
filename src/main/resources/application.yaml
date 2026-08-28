@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/mi_basedatos
     username: saul
-    password: password
+    password: postgresql
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

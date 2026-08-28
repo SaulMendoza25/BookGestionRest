@@ -7,10 +7,14 @@ import com.proyectos.BookGestion.dto.consultas_dto.AutorDTO;
 import com.proyectos.BookGestion.model.Autor;
 
 public interface AutorService {
-        List<AutorDTO> findAllAutor() throws Exception;
-        Optional<Autor> findByIdAutor(Long id);
-        Autor  saveAutor(Autor autor);
-        Autor  updateAutor(Long id, Autor autor);
-        void deleteAutor(Long id);
-        Autor findbyAutor(Autor autor);
+  List<AutorDTO> findAllAutor() throws Exception;
+
+  Optional<AutorDTO> findByIdAutor(Long id);
+
+  Autor saveAutor(AutorDTO autorDTO);
+
+  Autor updateAutor(Long id, AutorDTO autorDTO);
+
+  void deleteAutor(Long id);
+
 }
