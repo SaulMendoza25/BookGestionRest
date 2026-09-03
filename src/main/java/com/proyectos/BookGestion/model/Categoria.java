@@ -27,4 +27,5 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria")
     private List<LibroCategoria> libroCategorias;
 
+
 }

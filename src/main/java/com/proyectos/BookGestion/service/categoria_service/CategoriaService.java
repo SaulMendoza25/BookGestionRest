@@ -3,16 +3,19 @@ package com.proyectos.BookGestion.service.categoria_service;
 import java.util.List;
 import java.util.Optional;
 
+import com.proyectos.BookGestion.dto.categoria_dto.CategoriaResponseDTO;
+import com.proyectos.BookGestion.dto.categoria_dto.CategoriaSaveDTO;
+import com.proyectos.BookGestion.dto.categoria_dto.CategoriaUpdateDTO;
 import com.proyectos.BookGestion.model.Categoria;
 
 public interface CategoriaService {
-  Optional<Categoria> findById(Long id);
+  CategoriaResponseDTO findById(Long id);
 
-  Categoria saveCategoria(Categoria categoria);
+  CategoriaResponseDTO saveCategoria(CategoriaSaveDTO categoria);
 
-  List<Categoria> findAllCategoria();
+  List<CategoriaResponseDTO> findAllCategoria();
 
-  Categoria updateCategoria(Long id, Categoria categoria);
+  CategoriaResponseDTO updateCategoria(Long id, CategoriaUpdateDTO categoria);
 
   void deleteCategoria(Long id);
 }

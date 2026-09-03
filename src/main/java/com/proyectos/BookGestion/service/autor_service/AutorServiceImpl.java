@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.proyectos.BookGestion.dto.autor_dto.AutorResponseDTO;
+import com.proyectos.BookGestion.dto.autor_dto.AutorSaveDTO;
+import com.proyectos.BookGestion.dto.autor_dto.AutorUpdateDTO;
 import com.proyectos.BookGestion.dto.consultas_dto.AutorDTO;
 import com.proyectos.BookGestion.error.autor_error.AutorNotFoundException;
 import com.proyectos.BookGestion.model.Autor;
@@ -29,64 +32,68 @@ public class AutorServiceImpl implements AutorService {
       throw new AutorNotFoundException("No hay autores guardardos");
     }
     listaAutores.stream().forEach(
-        (data) -> new AutorDTO(data.getNombre(), data.getBiografia(), data.getFechaNacimiento(), data.getUrlFoto()));
+        (data) -> autoresDTO
+            .add(new AutorDTO(data.getNombre(), data.getBiografia(), data.getFechaNacimiento(), data.getUrlFoto())));
 
     return autoresDTO;
   }
 
   @Override
-  public Optional<AutorDTO> findByIdAutor(Long id) {
+  public AutorResponseDTO findById(Long id) {
+    Autor autor = autorRepository.findById(id)
+        .orElseThrow(() -> new AutorNotFoundException("No se encontro el autor con el id: " + id));
 
-    if (autorRepository.findById(id).isEmpty()) {
-      throw new AutorNotFoundException("Autor no encontrado");
-    }
-    Autor autor = autorRepository.findById(id).get();
-    AutorDTO autorDTO = new AutorDTO();
-    autorDTO.setNombre(autor.getNombre());
-    autorDTO.setBiografia(autor.getBiografia());
-    autorDTO.setFechaNacimiento(autor.getFechaNacimiento());
-    autorDTO.setUrlFoto(autor.getUrlFoto());
-    return Optional.of(autorDTO);
+    return mapToAutorResponseDTO(autor);
 
   }
 
   @Override
-  public Autor saveAutor(AutorDTO autorDTO) {
+  public AutorResponseDTO saveAutor(AutorSaveDTO autorSaveDTO) {
 
-    Autor autor = new Autor();
-    autor.setNombre(autorDTO.getNombre());
-    autor.setFechaNacimiento(autorDTO.getFechaNacimiento());
-    autor.setUrlFoto(autorDTO.getUrlFoto());
-    autor.setBiografia(autorDTO.getBiografia());
-    return autorRepository.save(autor);
+    Autor autor = mapToAutorSave(autorSaveDTO);
+    Autor autorGuardado = autorRepository.save(autor);
+    return mapToAutorResponseDTO(autorGuardado);
   }
 
   @Override
-  public Autor updateAutor(Long id, AutorDTO autorDTO) {
-    if (autorRepository.findById(id).isEmpty()) {
-      throw new AutorNotFoundException("Autor no encontrado para actualizar");
-    }
-    ;
-    Autor autor = autorRepository.findById(id).get();
-    if (!ToolsMethodsService.IsEmptyOrBlankString(autorDTO.getNombre())) {
-      autor.setNombre(autor.getNombre());
-    }
-    if (!ToolsMethodsService.IsEmptyOrBlankString(autorDTO.getBiografia())) {
-      autor.setBiografia(autor.getBiografia());
-    }
-    if (!ToolsMethodsService.IsEmptyOrBlankString(autorDTO.getUrlFoto())) {
-      autor.setUrlFoto(autor.getUrlFoto());
-    }
+  public AutorResponseDTO updateAutor(Long id, AutorUpdateDTO autorUpdateDTO) {
 
-    return autorRepository.save(autor);
+    
+    Autor autor = autorRepository.findById(id).orElseThrow(()->new AutorNotFoundException("El autor para actualizar con el id:" + id+" no fuen encontrado"));
+    if (!ToolsMethodsService.IsEmptyOrBlankString(autorUpdateDTO.nombre())) {
+      autor.setNombre(autorUpdateDTO.nombre());
+    }
+    if (!ToolsMethodsService.IsEmptyOrBlankString(autorUpdateDTO.biografia())) {
+      autor.setBiografia(autorUpdateDTO.biografia());
+    }
+    if (!ToolsMethodsService.IsEmptyOrBlankString(autorUpdateDTO.urlFoto())) {
+      autor.setUrlFoto(autorUpdateDTO.urlFoto());
+    }
+    Autor autorGuardado = autorRepository.save(autor);
+    return mapToAutorResponseDTO(autorGuardado);
   }
 
   @Override
   public void deleteAutor(Long id) {
-    if (autorRepository.findById(id).isEmpty()) {
-      return;
-    }
+    autorRepository.findById(id).orElseThrow(()->new AutorNotFoundException("No se encontro el id: " + id + " del autor a eliminar"));
     autorRepository.deleteById(id);
+  }
+  // Metodos para convertir DTOS
+
+  // Metodo para convertir un DTO en una entidad autor
+  private Autor mapToAutorSave(AutorSaveDTO autorSaveDTO) {
+    Autor autor = new Autor();
+    autor.setNombre(autorSaveDTO.nombre());
+    autor.setUrlFoto(autorSaveDTO.urlFoto());
+    autor.setFechaNacimiento(autorSaveDTO.fechaNacimiento());
+    autor.setBiografia(autorSaveDTO.biografia());
+    return autor;
+  }
+
+  // Metodo para convertir datos de Autor a un autorResponseDTO
+  private AutorResponseDTO mapToAutorResponseDTO(Autor autor) {
+    return new AutorResponseDTO(autor.getId(), autor.getNombre(), autor.getFechaNacimiento(), autor.getBiografia(),
+        autor.getUrlFoto());
   }
 
 }

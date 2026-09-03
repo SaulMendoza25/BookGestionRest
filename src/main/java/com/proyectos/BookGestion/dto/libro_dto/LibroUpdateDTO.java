@@ -6,12 +6,8 @@ import java.util.List;
 import com.proyectos.BookGestion.dto.releaciones_dto.libroAutor_dto.LibroAutorSaveDTO;
 import com.proyectos.BookGestion.model.enums.Estado;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-public record LibroSaveDTO(
-        String titulo,
+public record LibroUpdateDTO(
+    String titulo,
         String isbn,
         String descripcion,
         LocalDate fechaPublicacion,
@@ -19,5 +15,6 @@ public record LibroSaveDTO(
         String portada,
         Estado estado,
         List<LibroAutorSaveDTO> autores
-    ) {
+
+) {
 }

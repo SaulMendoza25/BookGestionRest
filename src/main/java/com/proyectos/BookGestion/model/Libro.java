@@ -1,6 +1,7 @@
 package com.proyectos.BookGestion.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.proyectos.BookGestion.model.enums.Estado;
@@ -38,11 +39,11 @@ public class Libro {
     private Estado estado;
 
     @OneToMany(mappedBy = "libro")
-    private List<BibliotecaUsuario> bibliotecaUsuarios;
+    private List<BibliotecaUsuario> bibliotecaUsuarios= new ArrayList<>();
     @OneToMany(mappedBy = "libro")
-    private List<LibroAutor> libroAutores;
+    private List<LibroAutor> libroAutores=new ArrayList<>();
     @OneToMany(mappedBy="libro")
-    private List<LibroCategoria> libroCategorias;
+    private List<LibroCategoria> libroCategorias= new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "editorial_id")
     private Editorial editorial;

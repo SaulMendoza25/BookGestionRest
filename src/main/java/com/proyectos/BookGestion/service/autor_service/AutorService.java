@@ -3,17 +3,20 @@ package com.proyectos.BookGestion.service.autor_service;
 import java.util.List;
 import java.util.Optional;
 
+import com.proyectos.BookGestion.dto.autor_dto.AutorResponseDTO;
+import com.proyectos.BookGestion.dto.autor_dto.AutorSaveDTO;
+import com.proyectos.BookGestion.dto.autor_dto.AutorUpdateDTO;
 import com.proyectos.BookGestion.dto.consultas_dto.AutorDTO;
 import com.proyectos.BookGestion.model.Autor;
 
 public interface AutorService {
   List<AutorDTO> findAllAutor() throws Exception;
 
-  Optional<AutorDTO> findByIdAutor(Long id);
+   AutorResponseDTO findById(Long id);
 
-  Autor saveAutor(AutorDTO autorDTO);
+  AutorResponseDTO saveAutor(AutorSaveDTO autorDTO);
 
-  Autor updateAutor(Long id, AutorDTO autorDTO);
+  AutorResponseDTO updateAutor(Long id, AutorUpdateDTO autorUpdateDTO);
 
   void deleteAutor(Long id);
 

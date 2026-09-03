@@ -1,5 +1,9 @@
 package com.proyectos.BookGestion.controller.autor_controller;
 
+import com.proyectos.BookGestion.dto.autor_dto.AutorResponseDTO;
+import com.proyectos.BookGestion.dto.autor_dto.AutorSaveDTO;
+import com.proyectos.BookGestion.dto.autor_dto.AutorUpdateDTO;
+import com.proyectos.BookGestion.dto.consultas_dto.AutorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,25 +28,26 @@ public class AutorController {
   }
 
   @GetMapping("/findById/{id}")
-  public ResponseEntity<?> findById(@PathVariable Long id) {
+  public ResponseEntity<AutorResponseDTO> findById(@PathVariable Long id) {
 
-    return ResponseEntity.ok(autorService.findByIdAutor(id));
+    return ResponseEntity.ok(autorService.findById(id));
   }
 
   @PostMapping("/saveAutor")
-  public ResponseEntity<?> saveAutor(@RequestBody Autor autor) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(this.autorService.saveAutor(autor));
+  public ResponseEntity<?> saveAutor(@RequestBody AutorSaveDTO autorSaveDTO) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(this.autorService.saveAutor(autorSaveDTO));
 
   }
 
   @PutMapping("/updateAutor/{id}")
-  public ResponseEntity<?> updateAutor(@PathVariable Long id, @RequestBody Autor autor) {
+  public ResponseEntity<?> updateAutor(@PathVariable Long id, @RequestBody AutorUpdateDTO autorUpdateDTO) {
 
-    return ResponseEntity.ok(this.autorService.updateAutor(id, autor));
+    return ResponseEntity.ok(this.autorService.updateAutor(id, autorUpdateDTO));
   }
 
   @DeleteMapping("deleteAutor/{id}")
   public ResponseEntity<?> deleteAutor(@PathVariable Long id) {
+    autorService.deleteAutor(id);
     return ResponseEntity.noContent().build();
   }
 

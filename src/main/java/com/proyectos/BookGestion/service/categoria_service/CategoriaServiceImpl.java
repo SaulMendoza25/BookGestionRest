@@ -1,8 +1,12 @@
 package com.proyectos.BookGestion.service.categoria_service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.proyectos.BookGestion.dto.categoria_dto.CategoriaResponseDTO;
+import com.proyectos.BookGestion.dto.categoria_dto.CategoriaSaveDTO;
+import com.proyectos.BookGestion.dto.categoria_dto.CategoriaUpdateDTO;
 import org.springframework.stereotype.Service;
 
 import com.proyectos.BookGestion.error.categoria_error.CategoriaNotFoundException;
@@ -20,50 +24,61 @@ public class CategoriaServiceImpl implements CategoriaService {
   }
 
   @Override
-  public Optional<Categoria> findById(Long id) {
-    if (categoriaRepository.findById(id).isEmpty()) {
-      throw new CategoriaNotFoundException("No se encontro la categoria");
-    }
-    return categoriaRepository.findById(id);
+  public CategoriaResponseDTO findById(Long id) {
+    Categoria categoria = categoriaRepository.findById(id).orElseThrow(()->new CategoriaNotFoundException("No se encontro la cateogria con el id:" + id));
+    return mapToCategoriaResponseDTO(categoria);
   }
 
   @Override
-  public Categoria saveCategoria(Categoria categoria) {
-
-    return categoriaRepository.save(categoria);
+  public CategoriaResponseDTO saveCategoria(CategoriaSaveDTO categoriaSaveDTO) {
+    Categoria categoria = mapToCategoriaSave(categoriaSaveDTO);
+    Categoria categoriaGuardada = categoriaRepository.save(categoria);
+    return mapToCategoriaResponseDTO(categoriaGuardada);
 
   }
 
   @Override
-  public List<Categoria> findAllCategoria() {
-    // TODO Auto-generated method stub
-    return categoriaRepository.findAll();
+  public List<CategoriaResponseDTO> findAllCategoria() {
+    List<Categoria> categorias = categoriaRepository.findAll();
+    if(categorias.isEmpty()){
+      throw new RuntimeException("No se encontro cateogrias");
+    }
+    List<CategoriaResponseDTO> categoriaResponseDTOs = new ArrayList<>();
+
+    categorias.forEach(data -> categoriaResponseDTOs.add(mapToCategoriaResponseDTO(data)));
+    return categoriaResponseDTOs;
   }
 
   @Override
-  public Categoria updateCategoria(Long id, Categoria categoria) {
-    if (categoriaRepository.findById(id).isEmpty()) {
+  public CategoriaResponseDTO updateCategoria(Long id, CategoriaUpdateDTO categoriaUpdateDTO) {
+   Categoria categoria = categoriaRepository.findById(id).orElseThrow(()->new CategoriaNotFoundException("No se encontro la categoria con el id: " + id));
 
+    if (!ToolsMethodsService.IsEmptyOrBlankString(categoriaUpdateDTO.nombre())) {
+      categoria.setNombre(categoriaUpdateDTO.nombre());
     }
-    Categoria categoriaCopy = categoriaRepository.findById(id).get();
-
-    if (!ToolsMethodsService.IsEmptyOrBlankString(categoria.getNombre())) {
-      categoriaCopy.setNombre(categoria.getNombre());
+    if (!ToolsMethodsService.IsEmptyOrBlankString(categoriaUpdateDTO.descripcion())) {
+      categoria.setDescripcion(categoriaUpdateDTO.descripcion());
     }
-    if (!ToolsMethodsService.IsEmptyOrBlankString(categoria.getDescripcion())) {
-      categoriaCopy.setDescripcion(categoria.getDescripcion());
-    }
-
-    return categoriaCopy;
+    
+     Categoria categoriaGuardada = categoriaRepository.save(categoria);
+    
+    return mapToCategoriaResponseDTO(categoriaGuardada);
 
   }
 
   @Override
   public void deleteCategoria(Long id) {
-    if (categoriaRepository.findById(id).isEmpty()) {
-      return;
-    }
-    categoriaRepository.deleteById(id);
+   Categoria categoria = categoriaRepository.findById(id).orElseThrow(()->new CategoriaNotFoundException("No se pudo eliminar la categoria con el id: " +id));
+   categoriaRepository.deleteById(categoria.getId());
   }
-
+  //Metodos privados sobre categoria 
+  private CategoriaResponseDTO mapToCategoriaResponseDTO(Categoria categoria){
+    return new CategoriaResponseDTO(categoria.getId(), categoria.getNombre(), categoria.getDescripcion());
+  }
+  private Categoria mapToCategoriaSave(CategoriaSaveDTO categoriaSaveDTO){
+    Categoria categoria = new Categoria();
+    categoria.setNombre(categoriaSaveDTO.nombre());
+    categoria.setDescripcion(categoriaSaveDTO.descripcion());
+    return categoria; 
+  }
 }

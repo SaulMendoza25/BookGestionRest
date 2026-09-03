@@ -1,15 +1,12 @@
-PACKAGE COM.PROYECTOS.BOOKGESTION.DTO.AUTOR_DTO;
+package com.proyectos.BookGestion.dto.autor_dto;
 
-IMPORT JAVA.TIME.LOCALDATE;
+import java.time.LocalDate;
 
-PUBLIC RECORD AUTORRESPONSEDTO(
+public record AutorResponseDTO(
 
-    PRIVATE FINAL LONG ID;
-PRIVATE FINAL STRING NOMBRE;
-PRIVATE FINAL STRING BIOGRAFIA;
-PRIVATE FINAL LOCALDATE FECHANACIMIENTO;
-PRIVATE FINAL STRING URLFOTO;
-
-) {
-
-}
+   Long id,
+   String nombre,
+   LocalDate fechaNacimiento,
+   String biografia,
+   String urlFoto
+) { }
