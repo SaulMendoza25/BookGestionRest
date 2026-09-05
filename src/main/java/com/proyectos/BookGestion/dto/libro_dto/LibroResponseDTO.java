@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.proyectos.BookGestion.dto.autor_dto.AutorResponseDTO;
+import com.proyectos.BookGestion.dto.releaciones_dto.libroCategoria_dto.LibroCategoriaResponseDTO;
 import com.proyectos.BookGestion.model.BibliotecaUsuario;
+import com.proyectos.BookGestion.model.Categoria;
 import com.proyectos.BookGestion.model.Editorial;
 import com.proyectos.BookGestion.model.Idioma;
 import com.proyectos.BookGestion.model.LibroAutor;
@@ -23,7 +25,8 @@ public record LibroResponseDTO(
         Integer numeroPaginas,
         String portada,
         Estado estado,
-        List<String> autores
+        List<String> autores,
+        List<LibroCategoriaResponseDTO> categorias
    ) {
 
 }

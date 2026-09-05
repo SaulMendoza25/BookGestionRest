@@ -1,5 +1,6 @@
 package com.proyectos.BookGestion.service.libro_service;
 
+import com.proyectos.BookGestion.repository.relaciones_repository.LibroCategoriaRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,12 +13,18 @@ import com.proyectos.BookGestion.dto.libro_dto.LibroResponseDTO;
 import com.proyectos.BookGestion.dto.libro_dto.LibroSaveDTO;
 import com.proyectos.BookGestion.dto.libro_dto.LibroUpdateDTO;
 import com.proyectos.BookGestion.dto.releaciones_dto.libroAutor_dto.LibroAutorSaveDTO;
+import com.proyectos.BookGestion.dto.releaciones_dto.libroCategoria_dto.LibroCategoriaResponseDTO;
+import com.proyectos.BookGestion.dto.releaciones_dto.libroCategoria_dto.LibroCategoriaSaveDTO;
 import com.proyectos.BookGestion.error.autor_error.AutorNotFoundException;
+import com.proyectos.BookGestion.error.categoria_error.CategoriaNotFoundException;
 import com.proyectos.BookGestion.error.libro_error.LibroNotFoundException;
 import com.proyectos.BookGestion.model.Autor;
+import com.proyectos.BookGestion.model.Categoria;
 import com.proyectos.BookGestion.model.Libro;
 import com.proyectos.BookGestion.model.LibroAutor;
+import com.proyectos.BookGestion.model.LibroCategoria;
 import com.proyectos.BookGestion.repository.autor_repository.AutorRepository;
+import com.proyectos.BookGestion.repository.categoria_repository.CategoriaRepository;
 import com.proyectos.BookGestion.repository.libro_respository.LibroRepository;
 import com.proyectos.BookGestion.repository.relaciones_repository.LibroAutorRepository;
 import com.proyectos.BookGestion.service.tools.ToolsMethodsService;
@@ -27,15 +34,20 @@ import jakarta.transaction.Transactional;
 @Service
 public class LibroServiceImpl implements LibroService {
 
-    final LibroRepository libroRepository;
-    final LibroAutorRepository libroAutorRepository;
-    final AutorRepository autorRepository;
+    private final LibroRepository libroRepository;
+    private final LibroAutorRepository libroAutorRepository;
+    private final AutorRepository autorRepository;
+    private final LibroCategoriaRepository libroCategoriaRepository;
+    private final CategoriaRepository categoriaRepository;
 
     public LibroServiceImpl(LibroRepository libroRepository, LibroAutorRepository libroAutorRepository,
-            AutorRepository autorRepository) {
+            AutorRepository autorRepository, LibroCategoriaRepository libroCategoriaRepository,
+            CategoriaRepository categoriaRepository) {
         this.libroRepository = libroRepository;
         this.libroAutorRepository = libroAutorRepository;
         this.autorRepository = autorRepository;
+        this.libroCategoriaRepository = libroCategoriaRepository;
+        this.categoriaRepository = categoriaRepository;
     }
 
     // Encontrar un libro mediante su ID en caso de no ecnontrar dar una exception
@@ -64,6 +76,15 @@ public class LibroServiceImpl implements LibroService {
             libroAutor.setFechaParticipacion(autorDTO.fechaParticipacion());
             libroAutor.setPorcentajeAutoria(autorDTO.porcentajeAutoria());
             libroAutorRepository.save(libroAutor);
+        }
+        for (LibroCategoriaSaveDTO categoriaDTO : libroSaveDTO.categorias()) {
+            Categoria categoria = categoriaRepository.findById(categoriaDTO.categoriaId())
+                    .orElseThrow(() -> new CategoriaNotFoundException(
+                            "No se encontro la categoria con el id: " + categoriaDTO.categoriaId()));
+            LibroCategoria libroCategoria = new LibroCategoria();
+            libroCategoria.setLibro(libroGuardado);
+            libroCategoria.setCategoria(categoria);
+            libroCategoriaRepository.save(libroCategoria);
         }
         return mapToResponseDTO(libroGuardado);
     }
@@ -133,9 +154,16 @@ public class LibroServiceImpl implements LibroService {
         for (LibroAutor libroAutor : libroAutorRepository.findByLibroId(libro.getId())) {
             autores.add(libroAutor.getAutor().getNombre());
         }
+        List<LibroCategoriaResponseDTO> categorias = new ArrayList<>();
+        for (LibroCategoria libroCategoria : libroCategoriaRepository.findByLibroId(libro.getId())) {
+            LibroCategoriaResponseDTO libroCategoriaResponseDTOs = new LibroCategoriaResponseDTO(
+                    libroCategoria.getCategoria().getNombre(), libroCategoria.getCategoria().getDescripcion());
+
+            categorias.add(libroCategoriaResponseDTOs);
+        }
         return new LibroResponseDTO(libro.getId(), libro.getTitulo(), libro.getIsbn(),
                 libro.getDescripcion(), libro.getFechaPublicacion(), libro.getNumeroPaginas(), libro.getPortada(),
-                libro.getEstado(), autores);
+                libro.getEstado(), autores, categorias);
     }
 
     private Libro mapToLibroSave(LibroSaveDTO libroSaveDTO) {

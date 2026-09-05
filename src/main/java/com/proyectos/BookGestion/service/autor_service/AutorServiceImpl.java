@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.proyectos.BookGestion.dto.autor_dto.AutorResponseDTO;
 import com.proyectos.BookGestion.dto.autor_dto.AutorSaveDTO;
 import com.proyectos.BookGestion.dto.autor_dto.AutorUpdateDTO;
-import com.proyectos.BookGestion.dto.consultas_dto.AutorDTO;
 import com.proyectos.BookGestion.error.autor_error.AutorNotFoundException;
 import com.proyectos.BookGestion.model.Autor;
 import com.proyectos.BookGestion.repository.autor_repository.AutorRepository;
@@ -25,17 +24,16 @@ public class AutorServiceImpl implements AutorService {
   }
 
   @Override
-  public List<AutorDTO> findAllAutor() {
-    List<AutorDTO> autoresDTO = new ArrayList<>();
+  public List<AutorResponseDTO> findAllAutor() {
+    List<AutorResponseDTO> autoresResponseDTOs = new ArrayList<>();
     List<Autor> listaAutores = autorRepository.findAll();
     if (listaAutores.isEmpty()) {
       throw new AutorNotFoundException("No hay autores guardardos");
     }
     listaAutores.stream().forEach(
-        (data) -> autoresDTO
-            .add(new AutorDTO(data.getNombre(), data.getBiografia(), data.getFechaNacimiento(), data.getUrlFoto())));
+        (data) -> autoresResponseDTOs.add(mapToAutorResponseDTO(data)));
 
-    return autoresDTO;
+    return autoresResponseDTOs;
   }
 
   @Override

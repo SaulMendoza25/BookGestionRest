@@ -3,7 +3,6 @@ package com.proyectos.BookGestion.controller.autor_controller;
 import com.proyectos.BookGestion.dto.autor_dto.AutorResponseDTO;
 import com.proyectos.BookGestion.dto.autor_dto.AutorSaveDTO;
 import com.proyectos.BookGestion.dto.autor_dto.AutorUpdateDTO;
-import com.proyectos.BookGestion.dto.consultas_dto.AutorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +25,7 @@ public class AutorController {
   public AutorController(AutorService autorService) {
     this.autorService = autorService;
   }
+  
 
   @GetMapping("/findById/{id}")
   public ResponseEntity<AutorResponseDTO> findById(@PathVariable Long id) {

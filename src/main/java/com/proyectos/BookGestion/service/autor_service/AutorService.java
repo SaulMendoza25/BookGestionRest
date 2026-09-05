@@ -6,11 +6,10 @@ import java.util.Optional;
 import com.proyectos.BookGestion.dto.autor_dto.AutorResponseDTO;
 import com.proyectos.BookGestion.dto.autor_dto.AutorSaveDTO;
 import com.proyectos.BookGestion.dto.autor_dto.AutorUpdateDTO;
-import com.proyectos.BookGestion.dto.consultas_dto.AutorDTO;
 import com.proyectos.BookGestion.model.Autor;
 
 public interface AutorService {
-  List<AutorDTO> findAllAutor() throws Exception;
+  List<AutorResponseDTO> findAllAutor() throws Exception;
 
    AutorResponseDTO findById(Long id);
 
