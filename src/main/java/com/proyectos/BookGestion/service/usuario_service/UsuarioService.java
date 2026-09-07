@@ -4,20 +4,23 @@ package com.proyectos.BookGestion.service.usuario_service;
 import java.util.List;
 import java.util.Optional;
 
+import com.proyectos.BookGestion.dto.usuario_dto.UsuarioResponseDTO;
+import com.proyectos.BookGestion.dto.usuario_dto.UsuarioSaveDTO;
+import com.proyectos.BookGestion.dto.usuario_dto.UsuarioUpdateDTO;
 import com.proyectos.BookGestion.model.Usuario;
 
 /**
  * UsuarioService
  */
 public interface UsuarioService {
-  Optional<Usuario> findByIdUsuario(Long id);
+  UsuarioResponseDTO findByIdUsuario(Long id);
 
-  Usuario saveUsuario(Usuario usuario);
+  UsuarioResponseDTO saveUsuario(UsuarioSaveDTO usuario);
 
-  List<Usuario> findAllUsuarios();
+  List<UsuarioResponseDTO> findAllUsuarios();
 
-  Usuario updateUsuario(Long id, Usuario usuario);
+  UsuarioResponseDTO updateByIdUsuario(Long id, UsuarioUpdateDTO usuarioUpdateDTO);
 
-  void deleteUsuario(Long id);
+  void deleteIdUsuario(Long id);
 
 }

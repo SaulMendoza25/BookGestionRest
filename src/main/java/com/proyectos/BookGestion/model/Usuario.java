@@ -3,7 +3,11 @@ package com.proyectos.BookGestion.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.proyectos.BookGestion.model.enums.EstadoUsuario;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,8 +30,9 @@ public class Usuario {
     private String correo;
     private String password;
     private LocalDate fechaRegistro;
-    private Enum estado;
-    
+    @Enumerated (EnumType.STRING)
+    private EstadoUsuario estado;
+    private Plan plan;
     @OneToMany(mappedBy = "usuario")
     private List<BibliotecaUsuario> bibliotecaUsuarios;
     

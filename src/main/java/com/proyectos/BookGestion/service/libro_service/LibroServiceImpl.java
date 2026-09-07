@@ -4,6 +4,8 @@ import com.proyectos.BookGestion.repository.relaciones_repository.LibroCategoria
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.management.RuntimeErrorException;
 
@@ -66,7 +68,7 @@ public class LibroServiceImpl implements LibroService {
     public LibroResponseDTO saveLibro(LibroSaveDTO libroSaveDTO) {
         Libro libro = mapToLibroSave(libroSaveDTO);
         Libro libroGuardado = libroRepository.save(libro);
-        for (LibroAutorSaveDTO autorDTO : libroSaveDTO.autores()) {
+        for (LibroAutorSaveDTO autorDTO : libroSaveDTO.autores().stream().distinct().collect(Collectors.toList())) {
             Autor autor = autorRepository.findById(autorDTO.autorId()).orElseThrow(
                     () -> new AutorNotFoundException("Autor no encontrando con ID: " + autorDTO.autorId()));
 
@@ -77,7 +79,7 @@ public class LibroServiceImpl implements LibroService {
             libroAutor.setPorcentajeAutoria(autorDTO.porcentajeAutoria());
             libroAutorRepository.save(libroAutor);
         }
-        for (LibroCategoriaSaveDTO categoriaDTO : libroSaveDTO.categorias()) {
+        for (LibroCategoriaSaveDTO categoriaDTO : libroSaveDTO.categorias().stream().distinct().collect(Collectors.toList())) {
             Categoria categoria = categoriaRepository.findById(categoriaDTO.categoriaId())
                     .orElseThrow(() -> new CategoriaNotFoundException(
                             "No se encontro la categoria con el id: " + categoriaDTO.categoriaId()));
@@ -123,17 +125,35 @@ public class LibroServiceImpl implements LibroService {
         libro.setEstado(libroUpdateDTO.estado());
         if (!libroUpdateDTO.autores().isEmpty()) {
             for (LibroAutorSaveDTO autorDTO : libroUpdateDTO.autores()) {
-                Autor autor = autorRepository.findById(autorDTO.autorId()).orElseThrow(
-                        () -> new AutorNotFoundException("Autor no encontrando con ID: " + autorDTO.autorId()));
+                if (!libro.getLibroAutores().stream().anyMatch(data -> data.getAutor().getId() == autorDTO.autorId())) {
 
-                LibroAutor libroAutor = new LibroAutor();
-                libroAutor.setLibro(libro);
-                libroAutor.setAutor(autor);
-                libroAutor.setFechaParticipacion(autorDTO.fechaParticipacion());
-                libroAutor.setPorcentajeAutoria(autorDTO.porcentajeAutoria());
-                libroAutorRepository.save(libroAutor);
+                    Autor autor = autorRepository.findById(autorDTO.autorId()).orElseThrow(
+                            () -> new AutorNotFoundException("Autor no encontrando con ID: " + autorDTO.autorId()));
+
+                    LibroAutor libroAutor = new LibroAutor();
+                    libroAutor.setLibro(libro);
+                    libroAutor.setAutor(autor);
+                    libroAutor.setFechaParticipacion(autorDTO.fechaParticipacion());
+                    libroAutor.setPorcentajeAutoria(autorDTO.porcentajeAutoria());
+                    libroAutorRepository.save(libroAutor);
+                }
             }
         }
+        if (!libroUpdateDTO.categorias().isEmpty()) {
+            for (LibroCategoriaSaveDTO categoriaSaveDTO : libroUpdateDTO.categorias()) {
+                if (!libro.getLibroCategorias().stream()
+                        .anyMatch(data -> data.getCategoria().getId() == categoriaSaveDTO.categoriaId())) {
+
+                    Categoria categoria = categoriaRepository.findById(categoriaSaveDTO.categoriaId()).orElseThrow(
+                            () -> new CategoriaNotFoundException("No se encontro la categoria con un el id:" + id));
+                    LibroCategoria libroCategoria = new LibroCategoria();
+                    libroCategoria.setLibro(libro);
+                    libroCategoria.setCategoria(categoria);
+                    libroCategoriaRepository.save(libroCategoria);
+                }
+            }
+        }
+
         Libro libroActualizado = libroRepository.save(libro);
         return mapToResponseDTO(libroActualizado);
     }
