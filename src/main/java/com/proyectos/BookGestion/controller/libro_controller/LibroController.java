@@ -31,7 +31,7 @@ public class LibroController {
         this.libroService = libroService;
     }
 
-    @GetMapping("/todoLosLibros")
+    @GetMapping("/findAllLibros")
     public ResponseEntity<List<LibroResponseDTO>> findAllLibro() {
         return ResponseEntity.ok(libroService.findAllLibros());
     }
@@ -40,6 +40,14 @@ public class LibroController {
     public ResponseEntity<LibroResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(libroService.findByIdLibro(id));
     }
+
+    @PostMapping("/saveLibro")
+    public ResponseEntity<LibroResponseDTO> saveLibro(@RequestBody LibroSaveDTO libroSaveDTO) {
+        //TODO: process POST request
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(libroService.saveLibro(libroSaveDTO));
+    }
+    
     @PutMapping("/updateLibro/{id}")
     public ResponseEntity<?> updateLibro(@PathVariable Long id, @RequestBody LibroUpdateDTO libroUpdateDTO) {
         //TODO: process PUT request
@@ -47,10 +55,7 @@ public class LibroController {
         return ResponseEntity.ok(this.libroService.updateLibro(id, libroUpdateDTO));
     }
 
-    @PostMapping("/saveLibro")
-    public ResponseEntity<LibroResponseDTO> postMethodName(@RequestBody LibroSaveDTO libroSaveDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.libroService.saveLibro(libroSaveDTO));
-    }
+  
     @DeleteMapping("/deleteLibro/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         this.libroService.deleteLibro(id);

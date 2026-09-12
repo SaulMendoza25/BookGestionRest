@@ -11,6 +11,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +34,8 @@ public class Usuario {
     private LocalDate fechaRegistro;
     @Enumerated (EnumType.STRING)
     private EstadoUsuario estado;
+    @ManyToOne
+    @JoinColumn (name = "plan_id")
     private Plan plan;
     @OneToMany(mappedBy = "usuario")
     private List<BibliotecaUsuario> bibliotecaUsuarios;

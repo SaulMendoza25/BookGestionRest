@@ -34,19 +34,17 @@ public class AutorController {
   }
 
   @PostMapping("/saveAutor")
-  public ResponseEntity<?> saveAutor(@RequestBody AutorSaveDTO autorSaveDTO) {
+  public ResponseEntity<AutorResponseDTO> saveAutor(@RequestBody AutorSaveDTO autorSaveDTO) {
     return ResponseEntity.status(HttpStatus.CREATED).body(this.autorService.saveAutor(autorSaveDTO));
-
   }
-
   @PutMapping("/updateAutor/{id}")
-  public ResponseEntity<?> updateAutor(@PathVariable Long id, @RequestBody AutorUpdateDTO autorUpdateDTO) {
+  public ResponseEntity<AutorResponseDTO> updateAutor(@PathVariable Long id, @RequestBody AutorUpdateDTO autorUpdateDTO) {
 
     return ResponseEntity.ok(this.autorService.updateAutor(id, autorUpdateDTO));
   }
 
   @DeleteMapping("deleteAutor/{id}")
-  public ResponseEntity<?> deleteAutor(@PathVariable Long id) {
+  public ResponseEntity<Void> deleteAutor(@PathVariable Long id) {
     autorService.deleteAutor(id);
     return ResponseEntity.noContent().build();
   }

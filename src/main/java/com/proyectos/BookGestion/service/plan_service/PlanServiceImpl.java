@@ -81,11 +81,4 @@ public class PlanServiceImpl implements PlanService {
         return plan;
     }
 
-    private Plan mapToPlanUpdate(PlanUpdateDTO planUpdateDTO) {
-        Plan plan = new Plan();
-        plan.setNombre(planUpdateDTO.nombre());
-        plan.setPrecio(planUpdateDTO.precio());
-        plan.setDuracionDias(planUpdateDTO.duracionDias());
-        return plan;
-    }
 }
