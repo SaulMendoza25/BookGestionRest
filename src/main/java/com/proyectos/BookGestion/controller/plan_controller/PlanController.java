@@ -38,7 +38,7 @@ public class PlanController {
         return ResponseEntity.ok(planService.findById(id));
     }
 
-    @GetMapping("/findAllPlan")
+    @GetMapping("/findAllPlans")
 
     public ResponseEntity<List<PlanResponseDTO>> findAll() {
 
@@ -60,7 +60,7 @@ public class PlanController {
     }
 
     @DeleteMapping("/deletePlan/{id}")
-    public ResponseEntity<Void> deletePlan(Long id) {
+    public ResponseEntity<Void> deletePlan(@PathVariable Long id) {
         planService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

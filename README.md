@@ -49,7 +49,7 @@ Ruta base: `/api/v1/plan`
 | --- | --- | --- |
 | `GET` | `/api/v1/plan/findById/{id}` | Buscar un plan por ID |
 | `GET` | `/api/v1/plan/findAllPlan` | Listar todos los planes |
-| `POST` | `/api/v1/plan/savePlan` | Crear un plan |
+| `POST` | `/api/v1/plan/savePlans` | Crear un plan |
 | `PUT` | `/api/v1/plan/updatePlan/{id}` | Actualizar un plan |
 | `DELETE` | `/api/v1/plan/deletePlan/{id}` | Eliminar un plan |
 

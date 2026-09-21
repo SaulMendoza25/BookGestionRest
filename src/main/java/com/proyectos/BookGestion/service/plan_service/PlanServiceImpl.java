@@ -23,7 +23,9 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public List<PlanResponseDTO> findAllplans() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAllplans'");
+        List<Plan> plans = planRepository.findAll();
+        return plans.stream().map(this::mapToResponseDTO).toList();
+
     }
 
     @Override
