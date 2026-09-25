@@ -94,9 +94,7 @@ public class LibroServiceImpl implements LibroService {
     @Override
     public List<LibroResponseDTO> findAllLibros() {
         List<Libro> libros = libroRepository.findAll();
-        if (libros.isEmpty()) {
-            throw new RuntimeErrorException(new Error("No se encontro ningun libro"));
-        }
+    
         List<LibroResponseDTO> librosDTO = new ArrayList<>();
         libros.forEach((libro) -> librosDTO.add(mapToResponseDTO(libro)));
         return librosDTO;

@@ -45,7 +45,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public List<UsuarioResponseDTO> findAllUsuarios() {
         List<Usuario> usuarios = usuarioRepository.findAll();
         if (usuarios.isEmpty()) {
-            throw new RuntimeException("No hay usuario guardados");
+            return new ArrayList<>();
         }
         List<UsuarioResponseDTO> usuarioResponseDTOs = new ArrayList<>();
         usuarios.forEach(data -> usuarioResponseDTOs.add(new UsuarioResponseDTO(data.getId(), data.getNombre(),
