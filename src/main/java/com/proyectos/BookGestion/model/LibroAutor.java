@@ -30,7 +30,7 @@ public class LibroAutor {
     @JoinColumn(name = "autor_id")
     private Autor autor;
     
-    private LocalDate fechaParticipacion;
-    private Integer porcentajeAutoria;
+    //private LocalDate fechaParticipacion;
+    //private Integer porcentajeAutoria;
 
 }

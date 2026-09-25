@@ -18,7 +18,7 @@
                 <p>Completa la información del título y agrega su portada para publicarlo en el catálogo.</p>
             </div>
 
-            <form th:action="@{/save/libro/guardar}" method="post" enctype="multipart/form-data" class="book-form"
+            <form th:action="@{/libro/guardado}" method="post" enctype="multipart/form-data" class="book-form"
                 th:object="${libro}">
                 <div class="form-group">
                     <label for="titulo">Título</label>
@@ -58,22 +58,13 @@
                 </div>
                 <div class="form-group">
                     <label for="autorId">Autor</label>
-                    <select id="autorId" th:field="*{autores[0].autorId}" required>
+                    <select id="autorId" th:field="*{autores}" required>
                         <option value="">Seleccionar autor</option>
                         <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}"></option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="fechaParticipacion">Fecha de participación</label>
-                    <input th:field="*{autores[0].fechaParticipacion}" type="date" id="fechaParticipacion" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="porcentajeAutoria">Porcentaje de autoría</label>
-                    <input th:field="*{autores[0].porcentajeAutoria}" type="number" id="porcentajeAutoria" min="1"
-                        max="100" required>
-                </div>
+            
                 <div class="form-group">
                     <label for="categoria">Categoría</label>
                     <select th:field="*{categorias}" id="categoria" name="categoria">

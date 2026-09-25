@@ -68,21 +68,21 @@ public class LibroServiceImpl implements LibroService {
     public LibroResponseDTO saveLibro(LibroSaveDTO libroSaveDTO) {
         Libro libro = mapToLibroSave(libroSaveDTO);
         Libro libroGuardado = libroRepository.save(libro);
-        for (LibroAutorSaveDTO autorDTO : libroSaveDTO.autores().stream().distinct().collect(Collectors.toList())) {
-            Autor autor = autorRepository.findById(autorDTO.autorId()).orElseThrow(
-                    () -> new AutorNotFoundException("Autor no encontrando con ID: " + autorDTO.autorId()));
+        for (Long autorId : libroSaveDTO.autores().stream().distinct().collect(Collectors.toList())) {
+            Autor autor = autorRepository.findById(autorId).orElseThrow(
+                    () -> new AutorNotFoundException("Autor no encontrando con ID: " + autorId));
 
             LibroAutor libroAutor = new LibroAutor();
             libroAutor.setLibro(libroGuardado);
             libroAutor.setAutor(autor);
-            libroAutor.setFechaParticipacion(autorDTO.fechaParticipacion());
-            libroAutor.setPorcentajeAutoria(autorDTO.porcentajeAutoria());
+            // libroAutor.setFechaParticipacion(autorDTO.fechaParticipacion());
+            // libroAutor.setPorcentajeAutoria(autorDTO.porcentajeAutoria());
             libroAutorRepository.save(libroAutor);
         }
-        for (LibroCategoriaSaveDTO categoriaDTO : libroSaveDTO.categorias().stream().distinct().collect(Collectors.toList())) {
-            Categoria categoria = categoriaRepository.findById(categoriaDTO.categoriaId())
+        for (Long categoriaId : libroSaveDTO.categorias().stream().distinct().collect(Collectors.toList())) {
+            Categoria categoria = categoriaRepository.findById(categoriaId)
                     .orElseThrow(() -> new CategoriaNotFoundException(
-                            "No se encontro la categoria con el id: " + categoriaDTO.categoriaId()));
+                            "No se encontro la categoria con el id: " + categoriaId));
             LibroCategoria libroCategoria = new LibroCategoria();
             libroCategoria.setLibro(libroGuardado);
             libroCategoria.setCategoria(categoria);
@@ -133,8 +133,8 @@ public class LibroServiceImpl implements LibroService {
                     LibroAutor libroAutor = new LibroAutor();
                     libroAutor.setLibro(libro);
                     libroAutor.setAutor(autor);
-                    libroAutor.setFechaParticipacion(autorDTO.fechaParticipacion());
-                    libroAutor.setPorcentajeAutoria(autorDTO.porcentajeAutoria());
+                    // libroAutor.setFechaParticipacion(autorDTO.fechaParticipacion());
+                    // libroAutor.setPorcentajeAutoria(autorDTO.porcentajeAutoria());
                     libroAutorRepository.save(libroAutor);
                 }
             }
@@ -193,7 +193,7 @@ public class LibroServiceImpl implements LibroService {
         libro.setDescripcion(libroSaveDTO.descripcion());
         libro.setFechaPublicacion(libroSaveDTO.fechaPublicacion());
         libro.setNumeroPaginas(libroSaveDTO.numeroPaginas());
-        libro.setPortada(libroSaveDTO.portada());
+        libro.setPortada(libroSaveDTO.portada().getOriginalFilename());
         libro.setEstado(libroSaveDTO.estado());
 
         return libro;
