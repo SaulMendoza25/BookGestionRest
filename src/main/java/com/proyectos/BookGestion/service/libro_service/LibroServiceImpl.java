@@ -1,13 +1,9 @@
 package com.proyectos.BookGestion.service.libro_service;
 
-import com.proyectos.BookGestion.repository.relaciones_repository.LibroCategoriaRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
+import java.util.Objects;
 import java.util.stream.Collectors;
-
-import javax.management.RuntimeErrorException;
 
 import org.springframework.stereotype.Service;
 
@@ -29,6 +25,7 @@ import com.proyectos.BookGestion.repository.autor_repository.AutorRepository;
 import com.proyectos.BookGestion.repository.categoria_repository.CategoriaRepository;
 import com.proyectos.BookGestion.repository.libro_respository.LibroRepository;
 import com.proyectos.BookGestion.repository.relaciones_repository.LibroAutorRepository;
+import com.proyectos.BookGestion.repository.relaciones_repository.LibroCategoriaRepository;
 import com.proyectos.BookGestion.service.tools.ToolsMethodsService;
 
 import jakarta.transaction.Transactional;
@@ -123,7 +120,7 @@ public class LibroServiceImpl implements LibroService {
         libro.setEstado(libroUpdateDTO.estado());
         if (!libroUpdateDTO.autores().isEmpty()) {
             for (LibroAutorSaveDTO autorDTO : libroUpdateDTO.autores()) {
-                if (!libro.getLibroAutores().stream().anyMatch(data -> data.getAutor().getId() == autorDTO.autorId())) {
+                if (!libro.getLibroAutores().stream().anyMatch(data -> Objects.equals(data.getAutor().getId(), autorDTO.autorId()))) {
 
                     Autor autor = autorRepository.findById(autorDTO.autorId()).orElseThrow(
                             () -> new AutorNotFoundException("Autor no encontrando con ID: " + autorDTO.autorId()));
@@ -140,7 +137,7 @@ public class LibroServiceImpl implements LibroService {
         if (!libroUpdateDTO.categorias().isEmpty()) {
             for (LibroCategoriaSaveDTO categoriaSaveDTO : libroUpdateDTO.categorias()) {
                 if (!libro.getLibroCategorias().stream()
-                        .anyMatch(data -> data.getCategoria().getId() == categoriaSaveDTO.categoriaId())) {
+                        .anyMatch(data -> Objects.equals(data.getCategoria().getId(), categoriaSaveDTO.categoriaId()))) {
 
                     Categoria categoria = categoriaRepository.findById(categoriaSaveDTO.categoriaId()).orElseThrow(
                             () -> new CategoriaNotFoundException("No se encontro la categoria con un el id:" + id));
