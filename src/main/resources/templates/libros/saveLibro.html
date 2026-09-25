@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardar libro</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/formulario.css">
+    <script src="/js/formulario.js" defer></script>
+</head>
+
+<body class="form-page">
+    <div class="container form-shell">
+        <div class="form-card">
+            <div class="form-header">
+                <h1>Guardar libro</h1>
+                <p>Completa la información del título y agrega su portada para publicarlo en el catálogo.</p>
+            </div>
+
+            <form th:action="@{/save/libro/guardar}" method="post" enctype="multipart/form-data" class="book-form"
+                th:object="${libro}">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input th:field="*{titulo}" type="text" id="titulo" name="titulo" placeholder="Ej. El principito"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="isbn">ISBN</label>
+                    <input th:field="*{isbn}" type="text" id="isbn" name="isbn" placeholder="Ej. 978-84-206-0000-0"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaPublicacion">Fecha de publicación</label>
+                    <input th:field="*{fechaPublicacion}" type="date" id="fechaPublicacion" name="fechaPublicacion">
+                </div>
+
+                <div class="form-group">
+                    <label for="numeroPaginas">Número de páginas</label>
+                    <input th:field="*{numeroPaginas}" type="number" id="numeroPaginas" name="numeroPaginas" min="1"
+                        placeholder="Ej. 320">
+                </div>
+
+                <div class="form-group full">
+                    <label for="descripcion">Descripción</label>
+                    <textarea th:field="*{descripcion}" id="descripcion" name="descripcion" rows="4"
+                        placeholder="Describe el libro..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="estado">Estado</label>
+                    <select th:field="*{estado}" id="estado" name="estado">
+                        <option value="DISPONIBLE">Disponible</option>
+                        <option value="NO_DISPONIBLE">No disponible</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="autorId">Autor</label>
+                    <select id="autorId" th:field="*{autores[0].autorId}" required>
+                        <option value="">Seleccionar autor</option>
+                        <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaParticipacion">Fecha de participación</label>
+                    <input th:field="*{autores[0].fechaParticipacion}" type="date" id="fechaParticipacion" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="porcentajeAutoria">Porcentaje de autoría</label>
+                    <input th:field="*{autores[0].porcentajeAutoria}" type="number" id="porcentajeAutoria" min="1"
+                        max="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoria">Categoría</label>
+                    <select th:field="*{categorias}" id="categoria" name="categoria">
+                        <option value="">Seleccionar categoría</option>
+                        <option th:each="categoria : ${categorias}" th:value="${categoria.id}"
+                            th:text="${categoria.nombre}"></option>
+                    </select>
+                    <div class="form-group">
+                        <label for="portada">Portada</label>
+                        <input th:field="*{portada}" type="file" id="portada" name="portada" accept="image/*">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a href="/" class="btn btn-secondary">Cancelar</a>
+                    </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

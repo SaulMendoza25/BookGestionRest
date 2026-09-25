@@ -9,7 +9,7 @@ import com.proyectos.BookGestion.dto.autor_dto.AutorUpdateDTO;
 import com.proyectos.BookGestion.model.Autor;
 
 public interface AutorService {
-  List<AutorResponseDTO> findAllAutor() throws Exception;
+  List<AutorResponseDTO> findAllAutor();
 
    AutorResponseDTO findById(Long id);
 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookGestion</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/formulario.js" defer></script>
+</head>
+
+<body class="landing-page">
+    <header class="topbar">
+        <div class="brand">BookGestion</div>
+        <nav class="nav-links">
+            <a href="/">Inicio</a>
+            <a th:href="@{/save/libro/formulario}">Nuevo libro</a>
+            <a href="/api/v1/libro/findAllLibros">API libros</a>
+        </nav>
+    </header>
+
+    <main class="dashboard container">
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">Gestión bibliográfica</span>
+                <h1>Controla autores, categorías y libros desde un solo lugar.</h1>
+                <p>Este panel centraliza la administración del catálogo y lleva tus publicaciones a una experiencia clara y ordenada.</p>
+                <div class="actions">
+                    <a th:href="@{/save/libro/formulario}" class="btn btn-primary">Crear libro</a>
+                    <a href="/api/v1/libro/findAllLibros" class="btn btn-secondary" target="_blank" rel="noreferrer">Ver API</a>
+                </div>
+            </div>
+            <div class="hero-panel">
+                <div class="stats">
+                    <div>
+                        <strong>Libros</strong>
+                        <span>Catalogados</span>
+                    </div>
+                    <div>
+                        <strong>Autores</strong>
+                        <span>Registrados</span>
+                    </div>
+                    <div>
+                        <strong>Categorías</strong>
+                        <span>Disponibles</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cards">
+            <article class="card">
+                <h2>Libros</h2>
+                <p>Consulta, almacena y organiza tu catálogo.</p>
+                <a th:href="@{/save/libro/formulario}">Acceder</a>
+            </article>
+            <article class="card">
+                <h2>Autores</h2>
+                <p>Gestiona la información de los colaboradores.</p>
+                <a href="/api/v1/autor/findAllAutores">Acceder</a>
+            </article>
+            <article class="card">
+                <h2>Categorías</h2>
+                <p>Clasifica tus títulos por temática o tipo.</p>
+                <a href="/api/v1/categoria/findAllCategorias">Acceder</a>
+            </article>
+        </section>
+    </main>
+</body>
+
+</html>
