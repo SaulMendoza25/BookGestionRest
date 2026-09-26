@@ -2,7 +2,6 @@ package com.proyectos.BookGestion.service.autor_service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -82,7 +81,7 @@ public class AutorServiceImpl implements AutorService {
   private Autor mapToAutorSave(AutorSaveDTO autorSaveDTO) {
     Autor autor = new Autor();
     autor.setNombre(autorSaveDTO.nombre());
-    autor.setUrlFoto(autorSaveDTO.urlFoto());
+    autor.setUrlFoto(autorSaveDTO.urlFoto().getOriginalFilename());
     autor.setFechaNacimiento(autorSaveDTO.fechaNacimiento());
     autor.setBiografia(autorSaveDTO.biografia());
     return autor;

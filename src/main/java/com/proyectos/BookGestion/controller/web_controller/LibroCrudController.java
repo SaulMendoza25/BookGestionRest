@@ -14,16 +14,16 @@ import com.proyectos.BookGestion.service.libro_service.LibroService;
 @Controller 
 @RequestMapping("/libro")
 public class LibroCrudController {
-    private AutorService autorService;
-    private CategoriaService categoriaService;
-    private LibroService libroService;
+    private final AutorService autorService;
+    private final CategoriaService categoriaService;
+    private final LibroService libroService;
     public LibroCrudController(AutorService autorService,CategoriaService categoriaService,LibroService libroService){
         this.categoriaService=categoriaService;
         this.autorService=autorService;
         this.libroService=libroService;
     }
 
-    @GetMapping("/formulario")
+    @GetMapping("/saveLibro")
     public String getFormularioLibro(@ModelAttribute("libro") LibroSaveDTO libroSaveDTO,Model model){
         model.addAttribute("autores", autorService.findAllAutor());
         model.addAttribute("categorias",categoriaService.findAllCategoria());

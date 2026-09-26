@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardar Autor</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/formulario.css">
+
+</head>
+
+<body class="form-page">
+    <div class="container form-shell">
+        <div class="form-card">
+            <div class="form-header">
+                <h1>Guardar Autor</h1>
+                <p>Completa la informacion</p>
+            </div>
+            <form th:action="@{/autor/guardado}" method="post" enctype="multipart/form-data" class="autor-form"
+                th:object="${autor}">
+                
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" name="nombre" placeholder="Ej. Miguel de Cervantes" th:field="*{nombre}"
+                        type="text">
+                </div>
+                <div class="form-group">
+                    <label for="biografia">Biografia</label>
+                    <textarea name="biografia" id="biografia" th:field="*{biografia}" rows="10" cols="50"
+                        placeholder="Escribe la biografia del autor"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="fechaNacimiento">Fecha de nacimiento</label>
+                    <input name="fechaNacimiento" type="date" th:field="*{fechaNacimiento}" id="fechaNacimiento">
+                </div>
+                <div class="form-group">
+                    <label for="urlFoto">Foto</label>
+                    <input type="file" th:field="*{urlFoto}" id="urlFoto" name="urlFoto" accept="image/*">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a href="/" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

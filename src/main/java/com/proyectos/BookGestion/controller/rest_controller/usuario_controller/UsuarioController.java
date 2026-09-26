@@ -1,4 +1,4 @@
-package com.proyectos.BookGestion.controller.usuario_controller;
+package com.proyectos.BookGestion.controller.rest_controller.usuario_controller;
 
 import java.util.List;
 
@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,10 +17,6 @@ import com.proyectos.BookGestion.dto.usuario_dto.UsuarioResponseDTO;
 import com.proyectos.BookGestion.dto.usuario_dto.UsuarioSaveDTO;
 import com.proyectos.BookGestion.dto.usuario_dto.UsuarioUpdateDTO;
 import com.proyectos.BookGestion.service.usuario_service.UsuarioService;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/v1/usuario")

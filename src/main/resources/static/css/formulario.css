@@ -46,7 +46,11 @@ body.form-page {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.2rem;
 }
-
+.autor-form {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1.2rem;
+}
 .form-group {
     display: flex;
     flex-direction: column;
@@ -133,6 +137,9 @@ textarea {
 
 @media (max-width: 680px) {
     .book-form {
+        grid-template-columns: 1fr;
+    }
+    .autor-form{
         grid-template-columns: 1fr;
     }
 }

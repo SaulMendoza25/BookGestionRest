@@ -70,6 +70,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
+		  <!-- Validaciones: @Valid, @NotNull, @NotBlank, etc. -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
 	</dependencies>
 
 	<build>

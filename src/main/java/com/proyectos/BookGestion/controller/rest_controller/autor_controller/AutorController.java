@@ -1,8 +1,5 @@
-package com.proyectos.BookGestion.controller.autor_controller;
+package com.proyectos.BookGestion.controller.rest_controller.autor_controller;
 
-import com.proyectos.BookGestion.dto.autor_dto.AutorResponseDTO;
-import com.proyectos.BookGestion.dto.autor_dto.AutorSaveDTO;
-import com.proyectos.BookGestion.dto.autor_dto.AutorUpdateDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyectos.BookGestion.model.Autor;
+import com.proyectos.BookGestion.dto.autor_dto.AutorResponseDTO;
+import com.proyectos.BookGestion.dto.autor_dto.AutorSaveDTO;
+import com.proyectos.BookGestion.dto.autor_dto.AutorUpdateDTO;
 import com.proyectos.BookGestion.service.autor_service.AutorService;
 
 @RestController
