@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Guardar libro</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/formulario.css}">
+
+    <script th:src="@{/js/formulario.js}" defer></script>
+</head>
+
+<body class="form-page">
+
+<div class="container form-shell">
+
+    <div class="form-card">
+
+        <div class="form-header">
+            <h1>Guardar libro</h1>
+            <p>
+                Completa la información del título y agrega
+                su portada para publicarlo en el catálogo.
+            </p>
+        </div>
+
+        <form
+            th:action="@{/libro/guardado}"
+            th:object="${libro}"
+            method="post"
+            enctype="multipart/form-data"
+            class="book-form">
+
+            <!-- TÍTULO -->
+            <div class="form-group">
+
+                <label for="titulo">Título</label>
+
+                <input
+                    th:field="*{titulo}"
+                    th:classappend="${#fields.hasErrors('titulo')} ? 'is-invalid'"
+                    type="text"
+                    id="titulo"
+                    placeholder="Ej. El principito">
+
+                <span
+                    class="error-message"
+                    th:if="${#fields.hasErrors('titulo')}"
+                    th:errors="*{titulo}">
+                </span>
+
+            </div>
+
+
+            <!-- ISBN -->
+            <div class="form-group">
+
+                <label for="isbn">ISBN</label>
+
+                <input
+                    th:field="*{isbn}"
+                    th:classappend="${#fields.hasErrors('isbn')} ? 'is-invalid'"
+                    type="text"
+                    id="isbn"
+                    placeholder="Ej. 978-84-206-0000-0">
+
+                <span
+                    class="error-message"
+                    th:if="${#fields.hasErrors('isbn')}"
+                    th:errors="*{isbn}">
+                </span>
+
+            </div>
+
+
+            <!-- FECHA PUBLICACIÓN -->
+            <div class="form-group">
+
+                <label for="fechaPublicacion">
+                    Fecha de publicación
+                </label>
+
+                <input
+                    th:field="*{fechaPublicacion}"
+                    th:classappend="${#fields.hasErrors('fechaPublicacion')} ? 'is-invalid'"
+                    type="date"
+                    id="fechaPublicacion">
+
+                <span
+                    class="error-message"
+                    th:if="${#fields.hasErrors('fechaPublicacion')}"
+                    th:errors="*{fechaPublicacion}">
+                </span>
+
+            </div>
+
+
+            <!-- NÚMERO DE PÁGINAS -->
+            <div class="form-group">
+
+                <label for="numeroPaginas">
+                    Número de páginas
+                </label>
+
+                <input
+                    th:field="*{numeroPaginas}"
+                    th:classappend="${#fields.hasErrors('numeroPaginas')} ? 'is-invalid'"
+                    type="number"
+                    id="numeroPaginas"
+                    placeholder="Ej. 320">
+
+                <span
+                    class="error-message"
+                    th:if="${#fields.hasErrors('numeroPaginas')}"
+                    th:errors="*{numeroPaginas}">
+                </span>
+
+            </div>
+
+
+            <!-- DESCRIPCIÓN -->
+            <div class="form-group full">
+
+                <label for="descripcion">
+                    Descripción
+                </label>
+
+                <textarea
+                    th:field="*{descripcion}"
+                    th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid'"
+                    id="descripcion"
+                    rows="4"
+                    placeholder="Describe el libro...">
+                </textarea>
+
+                <span
+                    class="error-message"
+                    th:if="${#fields.hasErrors('descripcion')}"
+                    th:errors="*{descripcion}">
+                </span>
+
+            </div>
+
+
+            <!-- ESTADO -->
+            <div class="form-group">
+
+                <label for="estado">
+                    Estado
+                </label>
+
+                <select
+                    th:field="*{estado}"
+                    th:classappend="${#fields.hasErrors('estado')} ? 'is-invalid'"
+                    id="estado">
+
+                    <option value="">
+                        Seleccionar estado
+                    </option>
+
+                    <option value="DISPONIBLE">
+                        Disponible
+                    </option>
+
+                    <option value="NO_DISPONIBLE">
+                        No disponible
+                    </option>
+
+                </select>
+
+                <span
+                    class="error-message"
+                    th:if="${#fields.hasErrors('estado')}"
+                    th:errors="*{estado}">
+                </span>
+
+            </div>
+
+
+            <!-- AUTOR -->
+            <div class="form-group">
+
+                <label for="autores">
+                    Autor
+                </label>
+
+                <select
+                    th:field="*{autores}"
+                    th:classappend="${#fields.hasErrors('autores')} ? 'is-invalid'"
+                    id="autores">
+
+                    <option value="">
+                        Seleccionar autor
+                    </option>
+
+                    <option
+                        th:each="autor : ${autores}"
+                        th:value="${autor.id}"
+                        th:text="${autor.nombre}">
+                    </option>
+
+                </select>
+
+                <span
+                    class="error-message"
+                    th:if="${#fields.hasErrors('autores')}"
+                    th:errors="*{autores}">
+                </span>
+
+            </div>
+
+
+            <!-- CATEGORÍA -->
+            <div class="form-group">
+
+                <label for="categorias">
+                    Categoría
+                </label>
+
+                <select
+                    th:field="*{categorias}"
+                    th:classappend="${#fields.hasErrors('categorias')} ? 'is-invalid'"
+                    id="categorias">
+
+                    <option value="">
+                        Seleccionar categoría
+                    </option>
+
+                    <option
+                        th:each="categoria : ${categorias}"
+                        th:value="${categoria.id}"
+                        th:text="${categoria.nombre}">
+                    </option>
+
+                </select>
+
+                <span
+                    class="error-message"
+                    th:if="${#fields.hasErrors('categorias')}"
+                    th:errors="*{categorias}">
+                </span>
+
+            </div>
+
+
+            <!-- PORTADA -->
+            <div class="form-group">
+
+                <label for="portada">
+                    Portada
+                </label>
+
+                <input
+                    th:field="*{portada}"
+                    th:classappend="${#fields.hasErrors('portada')} ? 'is-invalid'"
+                    type="file"
+                    id="portada"
+                    accept="image/*">
+
+                <span
+                    class="error-message"
+                    th:if="${#fields.hasErrors('portada')}"
+                    th:errors="*{portada}">
+                </span>
+
+            </div>
+
+
+            <!-- BOTONES -->
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+                    Guardar
+                </button>
+
+                <a
+                    th:href="@{/}"
+                    class="btn btn-secondary">
+                    Cancelar
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -19,20 +19,21 @@
             </div>
             <form th:action="@{/autor/guardado}" method="post" enctype="multipart/form-data" class="autor-form"
                 th:object="${autor}">
-                
+
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
                     <input id="nombre" name="nombre" placeholder="Ej. Miguel de Cervantes" th:field="*{nombre}"
-                        type="text">
+                        type="text" required>
                 </div>
                 <div class="form-group">
                     <label for="biografia">Biografia</label>
                     <textarea name="biografia" id="biografia" th:field="*{biografia}" rows="10" cols="50"
-                        placeholder="Escribe la biografia del autor"></textarea>
+                        placeholder="Escribe la biografia del autor" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="fechaNacimiento">Fecha de nacimiento</label>
-                    <input name="fechaNacimiento" type="date" th:field="*{fechaNacimiento}" id="fechaNacimiento">
+                    <input name="fechaNacimiento" type="date" th:field="*{fechaNacimiento}" id="fechaNacimiento"
+                        required>
                 </div>
                 <div class="form-group">
                     <label for="urlFoto">Foto</label>

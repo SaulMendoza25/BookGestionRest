@@ -5,12 +5,10 @@ body.form-page {
     justify-content: center;
     padding: 2rem 1rem;
 
-    background: linear-gradient(
-        180deg,
-        #ead8c8 0%,
-        #f5efe9 45%,
-        #faf6f2 100%
-    );
+    background: linear-gradient(180deg,
+            #ead8c8 0%,
+            #f5efe9 45%,
+            #faf6f2 100%);
 }
 
 .form-shell {
@@ -46,11 +44,19 @@ body.form-page {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.2rem;
 }
+
 .autor-form {
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 1.2rem;
 }
+
+.categoria-form {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1.2rem;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
@@ -135,11 +141,35 @@ textarea {
     background: #ead8c8;
 }
 
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.error-message {
+    display: block;
+    margin-top: 6px;
+    padding: 8px 12px;
+
+    color: #b91c1c;
+    background-color: #fee2e2;
+
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
 @media (max-width: 680px) {
     .book-form {
         grid-template-columns: 1fr;
     }
-    .autor-form{
+
+    .autor-form {
+        grid-template-columns: 1fr;
+    }
+
+    .categoria-form {
         grid-template-columns: 1fr;
     }
 }
